@@ -1,4 +1,4 @@
-from analyzer_engine import Analyzer, messages
+from analyzer_engine import Analyzer
 import sys
 import os
 
@@ -15,7 +15,7 @@ for name in sys.argv[1:]:
             if os.path.splitext(x)[1] == '.py':
                 files_to_parse.append(os.path.join(name, x))
     else:
-        print(f'{name}: is not a file or a directory')
+        print(f'{name}: not a file or a directory')
 
 # Analyze the selected files
 for target_path in sorted(files_to_parse, key=os.path.basename):
@@ -25,7 +25,7 @@ for target_path in sorted(files_to_parse, key=os.path.basename):
     # print results
     if results:
         for line, errors in results.items():
-            for error in errors:
-                print(f'{target_path}: Line {line}: {error} {messages[error]}')
+            for error, message in errors.items():
+                print(f'{target_path}: Line {line}: {error} {message}')
     else:
-        print(f'{target_path}: No errors found')
+        print(f'{target_path}: no errors found')
