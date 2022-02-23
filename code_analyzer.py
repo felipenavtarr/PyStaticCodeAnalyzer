@@ -20,12 +20,12 @@ for name in sys.argv[1:]:
 # Analyze the selected files
 for target_path in sorted(files_to_parse, key=os.path.basename):
     with open(target_path, 'r') as file:
-        results = Analyzer.parse(file)
+        results = Analyzer.scan(file)
 
     # print results
     if results:
         for line, errors in results.items():
-            for error, message in errors.items():
+            for error, message in errors:
                 print(f'{target_path}: Line {line}: {error} {message}')
     else:
         print(f'{target_path}: no errors found')
